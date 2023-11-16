@@ -7,7 +7,7 @@ import {restaurants} from './constants/mock'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <ul id = "1" className = "restaurant">
+  <ul>
     <li id={restaurants[0].id}>{restaurants[0].name}</li>
       <ul>
         <li>
