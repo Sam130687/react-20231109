@@ -1,12 +1,16 @@
-import { MenuList } from "../menu-list/component";
-import { ReviewList } from "../review-list/component";
+import { Menu } from "../menu/component";
+import { Reviews } from "../reviews/component";
 
 export const Restaurant = ({restaurant}) => {
+    if (!restaurant){
+        return null;
+    }
+
     return (
-        <ul id={restaurant.id}>
-            <li>{restaurant.name}</li>
-            <MenuList menus={restaurant.menu}/>
-            <ReviewList reviews={restaurant.reviews}/>
-      </ul>
+        <div id={restaurant.id}>
+            <h2>{restaurant.name}</h2>
+            <Menu dishes={restaurant.menu}/>
+            <Reviews reviews={restaurant.reviews}/>
+        </div>
     )
 }

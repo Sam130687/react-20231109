@@ -1,11 +1,11 @@
-import { RestaurantNames } from "../../components/restaurant-names/component";
-import { RestaurantList } from "../../components/restaurant-list/component";
+import { RestaurantTabs } from "../../components/restaurantTabs/component";
+import { Restaurants } from "../../components/restaurants/component";
 
 export const RestaurantPage = ({restaurants}) => {
     return (
         <div>
-            <RestaurantNames restaurants={restaurants}/>
-            <RestaurantList restaurants={restaurants}/>
+            <RestaurantTabs restaurants={restaurants}/>
+            <Restaurants restaurants={restaurants}/>
         </div>
     )
 }

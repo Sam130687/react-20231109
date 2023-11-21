@@ -1,3 +1,13 @@
 export const Review = ({review}) => {
-    return (<li id={review.id}>{review.user} - {review.text}</li>)
+    if (!review) {
+        return null;
+    }
+
+    return (
+        <div>
+            <div>
+                {review.user} - {review.text}
+            </div>
+        </div>
+    )
 }
