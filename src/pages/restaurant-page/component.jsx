@@ -3,10 +3,6 @@ import { Restaurants } from "../../components/restaurants/component";
 import { useState } from 'react';
 
 export const RestaurantPage = ({restaurants}) => {
-    if (!restaurants){
-        return null;
-    }
-
     const [selectedRestaurant, setSelectedRestaurant] = useState(-1);
 
     const filteredRestaurant = restaurants.filter(
