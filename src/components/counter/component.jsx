@@ -8,11 +8,11 @@ export const Counter = ({count=0, step=1, onCounterClick, min=0, max=5}) => {
     return (
         <div>
             <button onClick={
-                () => setAmount(count > min ? count - step : 0 )
+                () => setAmount(amount > min ? amount - step : 0 )
             }>-</button>
             <span>{count}</span>
             <button onClick={
-                () => setAmount(count < max ? count + step : 5 )
+                () => setAmount(amount < max ? amount + step : 5 )
             }>+</button>
         </div>
     )
