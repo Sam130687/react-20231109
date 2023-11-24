@@ -5,6 +5,10 @@ import { useState } from 'react';
 export const RestaurantPage = ({restaurants}) => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(-1);
 
+    if (!restaurants){
+        return null;
+    }
+
     const filteredRestaurant = restaurants.filter(
         ({id}) => id === selectedRestaurant
     );
