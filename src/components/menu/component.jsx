@@ -5,7 +5,9 @@ export const Menu = ({dishes}) => {
         <div>
             <h3>Меню</h3>
             {dishes.map((dish) =>
-                <Dish dish = {dish} />
+                <Dish
+                    dish = {dish}
+                />
             )}
         </div>
     )
