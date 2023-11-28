@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react"
 
 export const Counter = ({count=0, step=1, onCounterClick, min=0, max=5}) => {
-    const [amount, setAmount] = useState(count);
-
-    useEffect(()=>{onCounterClick(amount)}, [amount]);
-
     return (
         <div>
             <button onClick={
-                () => setAmount(amount > min ? amount - step : 0 )
+                () => onCounterClick(count > min ? count - step : min )
             }>-</button>
             <span>{count}</span>
             <button onClick={
-                () => setAmount(amount < max ? amount + step : 5 )
+                () => onCounterClick(count < max ? count + step : max )
             }>+</button>
         </div>
     )
