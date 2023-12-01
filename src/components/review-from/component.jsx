@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { Counter } from "../counter/component";
+import styles from "./styles.module.css";
 
 const DEFAULT_FORM_VALUE = {
   name: "",
@@ -29,31 +30,9 @@ export const ReviewForm = () => {
   const [formValue, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
 
   return (
-    <div>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          value={formValue.name}
-          onChange={(event) =>
-            dispatch({ type: "setName", payload: event.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label htmlFor="text">Text</label>
-        <input
-          id="text"
-          type="text"
-          value={formValue.text}
-          onChange={(event) =>
-            dispatch({ type: "setText", payload: event.target.value })
-          }
-        />
-      </div>
-      <div>
-        <label htmlFor="rating">Rating</label>
+    <div className={styles.root}>
+      <div className={styles.lableGroup}>
+        <label className={styles.labelElement} htmlFor="rating">Rating</label>
         <Counter
             id="rating"
             count={formValue.rating}
@@ -64,6 +43,28 @@ export const ReviewForm = () => {
             }
             min={1}
             max={5}
+        />
+      </div>
+      <div className={styles.lableGroup}>
+        <label className={styles.labelElement} htmlFor="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          value={formValue.name}
+          onChange={(event) =>
+            dispatch({ type: "setName", payload: event.target.value })
+          }
+        />
+      </div>
+      <div className={styles.lableGroup}>
+        <label className={styles.labelElement} htmlFor="text">Text</label>
+        <textarea
+          id="text"
+          type="text"
+          value={formValue.text}
+          onChange={(event) =>
+            dispatch({ type: "setText", payload: event.target.value })
+          }
         />
       </div>
     </div>

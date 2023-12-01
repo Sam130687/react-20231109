@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
+import styles from "./styles.module.css";
 
 export const Counter = ({count=0, step=1, onCounterClick, min=0, max=5}) => {
     return (
-        <div>
-            <button onClick={
+        <div className={styles.root}>
+            <button  className={styles.action}  onClick={
                 () => onCounterClick(count > min ? count - step : min )
             }>-</button>
-            <span>{count}</span>
-            <button onClick={
+            {count}
+            <button  className={styles.action}  onClick={
                 () => onCounterClick(count < max ? count + step : max )
             }>+</button>
         </div>
