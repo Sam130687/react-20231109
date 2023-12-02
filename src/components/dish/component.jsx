@@ -1,9 +1,11 @@
 import { Counter } from "../counter/component";
 import { useState } from 'react';
 import styles from "./styles.module.css";
+import { useOrder } from "../order/hook";
 
 export const Dish = ({dish}) => {
     const [count, setCounter] = useState(0);
+    const { forms, setAddress } = useOrder();
 
     if (!dish) {
         return null;
@@ -18,7 +20,8 @@ export const Dish = ({dish}) => {
                     step={1}
                     onCounterClick={setCounter}
                     min={0}
-                    max={5}/>
+                    max={5}
+                    className={{action: forms.theme === "light" ? styles.blackButton : styles.lightButton}}/>
             </div>
         </div>)
 }

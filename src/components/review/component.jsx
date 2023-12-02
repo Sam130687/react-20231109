@@ -1,7 +1,10 @@
 import styles from "./styles.module.css";
 import { Counter } from "../counter/component";
+import { useOrder } from "../order/hook";
 
 export const Review = ({review}) => {
+    const { forms, setAddress } = useOrder();
+
     if (!review) {
         return null;
     }
@@ -16,6 +19,7 @@ export const Review = ({review}) => {
                     step={1}
                     min={1}
                     max={5}
+                    className={{action: forms.theme === "light" ? styles.blackButton : styles.lightButton}}
                 />
             </div>
             <div className={styles.lableGroup}>

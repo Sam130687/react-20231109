@@ -1,6 +1,9 @@
 import { RestaurantTabs } from "../../components/restaurantTabs/component";
 import { Restaurants } from "../../components/restaurants/component";
 import { useState } from 'react';
+import { Header } from '../../components/header/component';
+import { Footer } from '../../components/footer/component';
+import { OrderProvider } from '../../components/order/component';
 
 export const RestaurantPage = ({restaurants}) => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(-1);
@@ -14,7 +17,8 @@ export const RestaurantPage = ({restaurants}) => {
     );
 
     return (
-        <div>
+        <OrderProvider>
+            <Header />
             <RestaurantTabs
                 restaurants={restaurants}
                 onTabClick={setSelectedRestaurant}
@@ -22,6 +26,7 @@ export const RestaurantPage = ({restaurants}) => {
             <Restaurants
                 restaurants={filteredRestaurant}
             />
-        </div>
+            <Footer/>
+        </OrderProvider>
     )
 }

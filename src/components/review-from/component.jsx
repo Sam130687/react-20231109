@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { Counter } from "../counter/component";
 import styles from "./styles.module.css";
+import { useOrder } from "../order/hook";
 
 const DEFAULT_FORM_VALUE = {
   name: "",
@@ -28,6 +29,7 @@ const reducer = (state, action) => {
 
 export const ReviewForm = () => {
   const [formValue, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
+  const { forms, setAddress } = useOrder();
 
   return (
     <div className={styles.root}>
@@ -43,6 +45,7 @@ export const ReviewForm = () => {
             }
             min={1}
             max={5}
+            className={{action: forms.theme === "light" ? styles.blackButton : styles.lightButton}}
         />
       </div>
       <div className={styles.lableGroup}>

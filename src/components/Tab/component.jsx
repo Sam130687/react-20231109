@@ -1,3 +1,10 @@
-export const Tab = ({children, onClick}) => {
-    return (<button onClick={onClick}>{children}</button>)
+import styles from './styles.module.css';
+import classnames from 'classnames';
+
+export const Tab = ({children, onClick, className}) => {
+    return (
+        <button
+            className={classnames(className, styles.root)}
+            onClick={onClick}
+        >{children}</button>)
 }
