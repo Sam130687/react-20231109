@@ -1,5 +1,5 @@
 import React from "react";
 
-export const OrderContext = React.createContext({
+export const ThemeContext = React.createContext({
   forms: { theme: {} },
 });

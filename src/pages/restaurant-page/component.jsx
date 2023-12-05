@@ -3,7 +3,7 @@ import { Restaurants } from "../../components/restaurants/component";
 import { useState } from 'react';
 import { Header } from '../../components/header/component';
 import { Footer } from '../../components/footer/component';
-import { OrderProvider } from '../../components/order/component';
+import { ThemeProvider } from '../../components/theme/component';
 
 export const RestaurantPage = ({restaurants}) => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(-1);
@@ -17,7 +17,7 @@ export const RestaurantPage = ({restaurants}) => {
     );
 
     return (
-        <OrderProvider>
+        <ThemeProvider>
             <Header />
             <RestaurantTabs
                 restaurants={restaurants}
@@ -27,6 +27,6 @@ export const RestaurantPage = ({restaurants}) => {
                 restaurants={filteredRestaurant}
             />
             <Footer/>
-        </OrderProvider>
+        </ThemeProvider>
     )
 }

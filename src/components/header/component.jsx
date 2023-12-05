@@ -1,14 +1,12 @@
 import styles from "./styles.module.css";
-import { useOrder } from "../order/hook";
+import { useTheme } from "../theme/hook";
 
 export const Header = () => {
-    const { forms, setTheme } = useOrder();
+    const { toggleTheme } = useTheme();
 
     return (
         <div className={styles.root}>
             <button>Заказ</button>
-            <button onClick={() =>
-                setTheme(forms.theme === "light" ? "dark" : "light")
-            }>Смена темы</button>
+            <button onClick={toggleTheme}>Смена темы</button>
         </div>)
 }
