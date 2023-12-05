@@ -10,9 +10,9 @@ export const Restaurant = ({restaurant}) => {
         <div id={restaurant.id}>
             <h2>{restaurant.name}</h2>
             <Menu
-                dishes={restaurant.menu}
+                dishIds={restaurant.menu}
             />
-            <Reviews reviews={restaurant.reviews}/>
+            <Reviews reviewIds={restaurant.reviews}/>
         </div>
     )
 }

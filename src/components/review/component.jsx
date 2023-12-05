@@ -1,10 +1,12 @@
 import styles from "./styles.module.css";
 import { Counter } from "../counter/component";
+import { useSelector } from "react-redux";
+import { selectReviewById } from "../../redux/features/reviews/selectors";
+import { selectUserById } from "../../redux/features/users/selectors"
 
-export const Review = ({review}) => {
-    if (!review) {
-        return null;
-    }
+export const Review = ({id}) => {
+    const review = useSelector((state) => selectReviewById(state, id));
+    const user = useSelector((state) => selectUserById(state, review.userId));
 
     return (
         <div className={styles.root}>
@@ -23,7 +25,7 @@ export const Review = ({review}) => {
             <input
                 id="name"
                 type="text"
-                value={review.user}
+                value={user.name}
             />
             </div>
             <div className={styles.lableGroup}>

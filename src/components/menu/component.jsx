@@ -1,13 +1,13 @@
 import { Dish } from "../dish/component"
 import styles from "./styles.module.css";
 
-export const Menu = ({dishes}) => {
+export const Menu = ({dishIds}) => {
     return (
         <div className={styles.root}>
             <h3>Меню</h3>
-            {dishes.map((dish) =>
+            {dishIds.map((dishId) =>
                 <Dish
-                    dish = {dish}
+                    id = {dishId}
                 />
             )}
         </div>
