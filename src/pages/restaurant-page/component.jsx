@@ -4,22 +4,27 @@ import { useState } from 'react';
 import { Header } from '../../components/header/component';
 import { Footer } from '../../components/footer/component';
 import { ThemeProvider } from '../../components/theme/component';
-import { useSelector } from "react-redux";
-import { selectRestaurantById } from "../../redux/features/restaurants/selectors";
 
-export const RestaurantPage = () => {
+export const RestaurantPage = ({restaurants}) => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(-1);
 
-    const filteredRestaurant = useSelector((state) => selectRestaurantById(state, selectedRestaurant));
+    if (!restaurants){
+        return null;
+    }
+
+    const filteredRestaurant = restaurants.filter(
+        ({id}) => id === selectedRestaurant
+    );
 
     return (
         <ThemeProvider>
             <Header />
             <RestaurantTabs
+                restaurants={restaurants}
                 onTabClick={setSelectedRestaurant}
             />
             <Restaurants
-                restaurant={filteredRestaurant}
+                restaurants={filteredRestaurant}
             />
             <Footer/>
         </ThemeProvider>

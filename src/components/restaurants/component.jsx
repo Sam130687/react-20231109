@@ -1,11 +1,13 @@
 import { Restaurant } from "../restaurant/component"
 
-export const Restaurants = ({restaurant}) => {
+export const Restaurants = ({restaurants}) => {
     return (
         <div>
-            <Restaurant
-                restaurant = {restaurant}
-            />
+            {restaurants.map((restaurant) =>
+                <Restaurant
+                    restaurant = {restaurant}
+                />
+            )}
         </div>
     )
 }
