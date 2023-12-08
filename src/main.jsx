@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
-import {restaurants} from './constants/mock';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<App restaurants={restaurants}/>);
+root.render(<App/>);
