@@ -6,7 +6,7 @@ import { selectUserById } from "../../redux/features/users/selectors"
 
 export const Review = ({id}) => {
     const review = useSelector((state) => selectReviewById(state, id));
-    const user = useSelector((state) => selectUserById(state, review.userId));
+    const user = useSelector((state) => selectUserById(state, review?.userId));
 
     return (
         <div className={styles.root}>
@@ -14,7 +14,7 @@ export const Review = ({id}) => {
                 <label className={styles.labelElement} htmlFor="rating">Rating</label>
                 <Counter
                     id="rating"
-                    count={review.rating}
+                    count={review?.rating}
                     step={1}
                     min={1}
                     max={5}
@@ -25,7 +25,7 @@ export const Review = ({id}) => {
             <input
                 id="name"
                 type="text"
-                value={user.name}
+                value={user?.name}
             />
             </div>
             <div className={styles.lableGroup}>
@@ -33,7 +33,7 @@ export const Review = ({id}) => {
             <textarea
                 id="text"
                 type="text"
-                value={review.text}
+                value={review?.text}
             />
             </div>
         </div>
