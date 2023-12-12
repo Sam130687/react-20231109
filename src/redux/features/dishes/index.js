@@ -1,14 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { normalizedDishes } from '../../../constants/normalized-mock';
+import { REQUEST_STATUSES } from '../../../constants/request-statuses';
+import { getDishes } from "./thunks/get_dishes";
 
 export const DishesSlice = createSlice({
     name: 'dishes',
     initialState: {
-        entities:  normalizedDishes.reduce((acc, dish) => {
+        entities: {},
+        ids: [],
+        status: REQUEST_STATUSES.idle,
+    },
+    extraReducers: (builder) =>
+    builder
+      .addCase(getDishes.pending, (state) => {
+        state.status = REQUEST_STATUSES.pending;
+      })
+      .addCase(getDishes.fulfilled, (state, { payload }) => {
+        state.entities = payload.reduce((acc, dish) => {
             acc[dish.id] = dish;
 
             return acc;
-        }, {}),
-        ids: normalizedDishes.map(({id}) => id),
-    },
+        }, state.entities);
+        state.ids = Array.from(new Set(...state.ids, ...payload.map(({ id }) => id)));
+        state.status = REQUEST_STATUSES.fulfilled;
+      })
+      .addCase(getDishes.rejected, (state) => {
+        state.status = REQUEST_STATUSES.rejected;
+      }),
 })

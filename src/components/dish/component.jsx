@@ -8,6 +8,10 @@ export const Dish = ({id}) => {
     const [count, setCounter] = useState(0);
     const dish = useSelector((state) => selectDishById(state, id));
 
+    if (!dish){
+        return null;
+    };
+
     return (
         <div className={styles.root}>
             <div className={styles.lableGroup}>
