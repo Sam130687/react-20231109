@@ -1,19 +1,19 @@
 import { RestaurantTabs } from "../../components/restaurantTabs/component";
 import { Restaurants } from "../../components/restaurants/component";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Header } from '../../components/header/component';
 import { Footer } from '../../components/footer/component';
 import { ThemeProvider } from '../../components/theme/component';
-import { useDispatch } from "react-redux";
-import { getRestaurants } from "../../redux/features/restaurants/thunks/get_restaurants";
+import { useGetRestaurantsQuery } from "../../redux/services/api";
 
 export const RestaurantPage = () => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(undefined);
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getRestaurants());
-    }, []);
+    const { data, isFetching, isLoading, refetch } = useGetRestaurantsQuery(undefined);
+
+    if (isFetching) {
+        return "Загрузка.....";
+    }
 
     return (
         <ThemeProvider>
@@ -21,8 +21,9 @@ export const RestaurantPage = () => {
             <RestaurantTabs
                 onTabClick={setSelectedRestaurant}
             />
+            {selectedRestaurant || "Выберите ресторан"}
             <Restaurants
-                id={selectedRestaurant}
+                restaurant={data.find(({ id }) => id === selectedRestaurant)}
             />
             <Footer/>
         </ThemeProvider>

@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { Counter } from "../counter/component";
 import styles from "./styles.module.css";
+import { useCreateReviewMutation, useGetUsersQuery } from "../../redux/services/api";
 
 const DEFAULT_FORM_VALUE = {
   name: "",
@@ -26,8 +27,10 @@ const reducer = (state, action) => {
   }
 };
 
-export const ReviewForm = () => {
+export const ReviewForm = ({restaurantId}) => {
   const [formValue, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
+  const [createReview, result] = useCreateReviewMutation();
+  const {data, isFetching} = useGetUsersQuery(undefined);
 
   return (
     <div className={styles.root}>
@@ -67,6 +70,14 @@ export const ReviewForm = () => {
           }
         />
       </div>
+      <button onClick={() => createReview({
+          restaurantId,
+          newReview: {
+            userId: data?.find(({name}) => name === formValue.name).id,
+            text: formValue.text,
+            rating: formValue.rating} })}>
+        Save {restaurantId}
+      </button>
     </div>
   );
 };

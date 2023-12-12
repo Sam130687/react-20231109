@@ -1,14 +1,14 @@
 import { Restaurant } from "../restaurant/component"
 
-export const Restaurants = ({id}) => {
-    if (!id){
+export const Restaurants = ({restaurant}) => {
+    if (!restaurant){
         return null;
     };
 
     return (
         <div>
             <Restaurant
-                restaurantId = {id}
+                restaurant = {restaurant}
             />
         </div>
     )
