@@ -12,7 +12,7 @@ export const Menu = ({restaurantId}) => {
 
     useEffect(() => {
       dispatch(getDishes(restaurantId));
-    }, []);
+    }, [restaurantId]);
 
     return (
         <div className={styles.root}>

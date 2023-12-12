@@ -19,8 +19,8 @@ export const DishesSlice = createSlice({
             acc[dish.id] = dish;
 
             return acc;
-        }, {});
-        state.ids = payload.map(({ id }) => id);
+        }, state.entities);
+        state.ids = Array.from(new Set(...state.ids, ...payload.map(({ id }) => id)));
         state.status = REQUEST_STATUSES.fulfilled;
       })
       .addCase(getDishes.rejected, (state) => {

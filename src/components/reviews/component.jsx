@@ -14,7 +14,7 @@ export const Reviews = ({restaurantId}) => {
     useEffect(() => {
       dispatch(getReviews(restaurantId));
       dispatch(getUsers());
-    }, []);
+    }, [restaurantId]);
 
     return (
         <div className={styles.root}>
