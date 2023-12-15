@@ -1,28 +1,24 @@
-import { ReviewForm } from "../review-from/component"
 import { Review } from "../review/component"
 import styles from "./styles.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getUsers } from "../../redux/features/users/thunks/get_users";
-import { getReviews } from "../../redux/features/reviews/thunks/get_reviews";
-import { selectRestaurantReviewById } from "../../redux/features/restaurants/selectors";
+import { useGetReviewsQuery } from "../../redux/services/api";
+import { ReviewNew } from "../review-new/component";
 
-export const Reviews = ({restaurantId}) => {
-    const reviews = useSelector((state) => selectRestaurantReviewById(state, restaurantId));
+export const Reviews = ({restaurant}) => {
+    const {data, isFetching} = useGetReviewsQuery(restaurant.id);
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getReviews(restaurantId));
-      dispatch(getUsers());
-    }, [restaurantId]);
+    if (isFetching ) {
+        return "Загрузка отзывов";
+    }
 
     return (
         <div className={styles.root}>
             <h3>Отзывы</h3>
-            {reviews.map((reviewId) =>
-                <Review id = {reviewId} />
+            {data.map((review) =>
+                <Review
+                    review = {review}
+                />
             )}
-            <ReviewForm/>
+            <ReviewNew restaurantId={restaurant.id}/>
         </div>
     )
 }

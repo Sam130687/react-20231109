@@ -1,21 +1,37 @@
-import styles from "./styles.module.css";
-import { Counter } from "../counter/component";
-import { useSelector } from "react-redux";
-import { selectReviewById } from "../../redux/features/reviews/selectors";
-import { selectUserById } from "../../redux/features/users/selectors"
+import { useUpdateReviewMutation } from "../../redux/services/api";
+import { ReviewForm } from "../review-form/component";
 
-export const Review = ({id}) => {
-    const review = useSelector((state) => selectReviewById(state, id));
-    const user = useSelector((state) => selectUserById(state, review?.userId));
+const counter = {
+    step: 1,
+    min: 1,
+    max: 5
+  };
+
+export const Review = ({review}) => {
+    const [updateReview, result] = useUpdateReviewMutation();
 
     return (
+        <ReviewForm
+          review={review}
+          objectId={review.id}
+          onSaveClick={updateReview}
+          counter={counter}
+        />
+    );
+}
+
+/*return (
         <div className={styles.root}>
             <div className={styles.lableGroup}>
                 <label className={styles.labelElement} htmlFor="rating">Rating</label>
                 <Counter
                     id="rating"
-                    count={review?.rating}
+                    count={formValue.rating}
                     step={1}
+                    onCounterClick={(rate) => dispatch({
+                        type: "setRating",
+                        payload: rate })
+                    }
                     min={1}
                     max={5}
                 />
@@ -25,7 +41,7 @@ export const Review = ({id}) => {
             <input
                 id="name"
                 type="text"
-                value={user?.name}
+                value={ data?.find(({id}) => id === review.userId).name }
             />
             </div>
             <div className={styles.lableGroup}>
@@ -33,9 +49,19 @@ export const Review = ({id}) => {
             <textarea
                 id="text"
                 type="text"
-                value={review?.text}
+                value={formValue.text}
+                onChange={(event) =>
+                    dispatch({ type: "setText", payload: event.target.value })
+                }
             />
             </div>
+            <button onClick={() => updateReview({
+                    reviewId,
+                    newReview: {
+                        userId: review.userId,
+                        text: formValue.text,
+                        rating: formValue.rating} })}>
+                Save {reviewId}
+            </button>
         </div>
-    )
-}
+    ) */

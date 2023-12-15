@@ -1,25 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
 import { Dish } from "../dish/component"
 import styles from "./styles.module.css";
-import { useEffect } from "react";
-import { getDishes } from "../../redux/features/dishes/thunks/get_dishes";
-import { selectRestaurantMenuById } from "../../redux/features/restaurants/selectors";
+import { useGetDishesQuery } from "../../redux/services/api";
 
-export const Menu = ({restaurantId}) => {
-    const dispatch = useDispatch();
+export const Menu = ({restaurant}) => {
+    console.log(restaurant);
+    const {data, isFetching} = useGetDishesQuery(restaurant.id);
 
-    const menu = useSelector((state) => selectRestaurantMenuById(state, restaurantId));
-
-    useEffect(() => {
-      dispatch(getDishes(restaurantId));
-    }, [restaurantId]);
+    if (isFetching) {
+        return "Загрузка меню";
+    }
 
     return (
         <div className={styles.root}>
             <h3>Меню</h3>
-            {menu.map((dishId) =>
+            {data.map((dish) =>
                 <Dish
-                    id = {dishId}
+                    dish = {dish}
                 />
             )}
         </div>

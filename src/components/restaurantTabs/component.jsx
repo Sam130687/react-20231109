@@ -1,13 +1,17 @@
-import { useSelector } from "react-redux";
 import { Tab } from "../Tab/component";
-import { selectRestaurantIds } from "../../redux/features/restaurants/selectors";
+import { useGetRestaurantsQuery } from "../../redux/services/api";
 
 export const RestaurantTabs = ({onTabClick}) => {
-    const restaurants = useSelector(selectRestaurantIds);
+    const { data, isFetching } = useGetRestaurantsQuery();
+
+    if (isFetching) {
+        return "Идет загрузка. Ожидайте";
+    }
+
     return (
         <div>
-            {restaurants.map((restaurantId) =>
-                <Tab id={restaurantId} onClick={() => onTabClick(restaurantId)}/>
+            {data.map((restaurant) =>
+                <Tab restaurant={restaurant} onClick={() => onTabClick(restaurant.id)}/>
             )}
         </div>
     )
