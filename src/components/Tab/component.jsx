@@ -6,7 +6,7 @@ export const Tab = ({restaurant}) => {
     const restaurantId = restaurant.id;
     return (
         <NavLink
-            to={`/restaurants/${restaurantId}`}
+            to={`/restaurants/${restaurantId}/menu`}
             className={({ isActive }) =>
             classNames(styles.link, {
               [styles.active]: isActive,
