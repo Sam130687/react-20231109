@@ -1,11 +1,15 @@
 import styles from './styles.module.css';
-import classnames from 'classnames';
-import { Button } from "../button/component";
+import classNames from 'classnames';
+import { NavLink } from "react-router-dom";
 
-export const Tab = ({restaurant, onClick, className}) => {
+export const Tab = ({restaurant}) => {
+    const restaurantId = restaurant.id;
     return (
-        <Button
-            className={classnames(className, styles.root)}
-            onClick={onClick}
-        >{restaurant.name}</Button>)
+        <NavLink
+            to={`/restaurants/${restaurantId}`}
+            className={({ isActive }) =>
+            classNames(styles.link, {
+              [styles.active]: isActive,
+            })}
+        >{restaurant.name}</NavLink>)
 }
