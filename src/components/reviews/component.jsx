@@ -1,7 +1,7 @@
-import { ReviewForm } from "../review-from/component"
 import { Review } from "../review/component"
 import styles from "./styles.module.css";
 import { useGetReviewsQuery } from "../../redux/services/api";
+import { ReviewNew } from "../review-new/component";
 
 export const Reviews = ({restaurant}) => {
     const {data, isFetching} = useGetReviewsQuery(restaurant.id);
@@ -18,7 +18,7 @@ export const Reviews = ({restaurant}) => {
                     review = {review}
                 />
             )}
-            <ReviewForm restaurantId={restaurant.id}/>
+            <ReviewNew restaurantId={restaurant.id}/>
         </div>
     )
 }

@@ -1,23 +1,12 @@
 import { useReducer } from "react";
 import { Counter } from "../counter/component";
 import styles from "./styles.module.css";
-import { useCreateReviewMutation, useGetUsersQuery } from "../../redux/services/api";
-
-const DEFAULT_FORM_VALUE = {
-  name: "",
-  text: "",
-  rating: 5,
-};
+import { useGetUsersQuery } from "../../redux/services/api";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "setName":
-      return {
-        ...state,
-        name: action.payload,
-        text: DEFAULT_FORM_VALUE.text,
-        rating: DEFAULT_FORM_VALUE.rating,
-      };
+      return { ...state, name: action.payload };
     case "setText":
       return { ...state, text: action.payload };
     case "setRating":
@@ -27,9 +16,8 @@ const reducer = (state, action) => {
   }
 };
 
-export const ReviewForm = ({restaurantId}) => {
-  const [formValue, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
-  const [createReview, result] = useCreateReviewMutation();
+export const ReviewForm = ({review, objectId, onSaveClick, counter}) => {
+  const [formValue, dispatch] = useReducer(reducer, review);
   const {data, isFetching} = useGetUsersQuery(undefined);
 
   return (
@@ -39,13 +27,13 @@ export const ReviewForm = ({restaurantId}) => {
         <Counter
             id="rating"
             count={formValue.rating}
-            step={0.5}
+            step={counter.step}
             onCounterClick={(rate) => dispatch({
                 type: "setRating",
                 payload: rate })
             }
-            min={1}
-            max={5}
+            min={counter.min}
+            max={counter.max}
         />
       </div>
       <div className={styles.lableGroup}>
@@ -53,7 +41,8 @@ export const ReviewForm = ({restaurantId}) => {
         <input
           id="name"
           type="text"
-          value={formValue.name}
+          value={formValue.userId ? data?.find(({id}) => id === review.userId).name : formValue.name}
+          disabled={formValue.userId}
           onChange={(event) =>
             dispatch({ type: "setName", payload: event.target.value })
           }
@@ -70,13 +59,14 @@ export const ReviewForm = ({restaurantId}) => {
           }
         />
       </div>
-      <button onClick={() => createReview({
-          restaurantId,
+      <button onClick={() => onSaveClick({
+          objectId,
           newReview: {
-            userId: data?.find(({name}) => name === formValue.name).id,
+            userId: formValue.userId ? formValue.userId : data?.find(({name}) => name === formValue.name).id,
             text: formValue.text,
-            rating: formValue.rating} })}>
-        Save {restaurantId}
+            rating: formValue.rating} }
+          )}>
+        Сохранить
       </button>
     </div>
   );

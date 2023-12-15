@@ -1,33 +1,26 @@
-import styles from "./styles.module.css";
-import { Counter } from "../counter/component";
-import { useGetUsersQuery, useUpdateReviewMutation } from "../../redux/services/api";
-import { useReducer } from "react";
+import { useUpdateReviewMutation } from "../../redux/services/api";
+import { ReviewForm } from "../review-form/component";
 
-const reducer = (state, action) => {
-    switch (action.type) {
-      case "setName":
-        return {
-          ...state,
-          name: action.payload,
-        };
-      case "setRating":
-        return { ...state, rating: action.payload };
-      default:
-        return state;
-    }
+const counter = {
+    step: 1,
+    min: 1,
+    max: 5
   };
 
 export const Review = ({review}) => {
-    const {data, isFetching} = useGetUsersQuery(undefined);
     const [updateReview, result] = useUpdateReviewMutation();
-    const [formValue, dispatch] = useReducer(reducer, review);
 
-    if (isFetching ) {
-        return "Загрузка пользователей";
-    }
-
-    const reviewId = review.id;
     return (
+        <ReviewForm
+          review={review}
+          objectId={review.id}
+          onSaveClick={updateReview}
+          counter={counter}
+        />
+    );
+}
+
+/*return (
         <div className={styles.root}>
             <div className={styles.lableGroup}>
                 <label className={styles.labelElement} htmlFor="rating">Rating</label>
@@ -71,5 +64,4 @@ export const Review = ({review}) => {
                 Save {reviewId}
             </button>
         </div>
-    )
-}
+    ) */

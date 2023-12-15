@@ -35,23 +35,23 @@ export const api = createApi({
           ),
     }),
     createReview: builder.mutation({
-      query: ({ restaurantId, newReview }) => ({
-        url: `review/${restaurantId}`,
+      query: ({ objectId, newReview }) => ({
+        url: `review/${objectId}`,
         method: "POST",
         body: newReview,
       }),
-      invalidatesTags: (result, _, { restaurantId }) => [
-        { type: "Review", id: restaurantId },
+      invalidatesTags: (result, _, { objectId }) => [
+        { type: "Review", id: objectId },
       ],
     }),
     updateReview: builder.mutation({
-        query: ({ reviewId, newReview }) => ({
-          url: `review/${reviewId}`,
+        query: ({ objectId, newReview }) => ({
+          url: `review/${objectId}`,
           method: "PATCH",
           body: newReview,
         }),
-        invalidatesTags: (result, _, { reviewId }) => [
-          { type: "Review", id: reviewId },
+        invalidatesTags: (result, _, { objectId }) => [
+          { type: "Review", id: objectId },
         ],
     }),
   }),
