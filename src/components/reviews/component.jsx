@@ -2,12 +2,14 @@ import { Review } from "../review/component"
 import styles from "./styles.module.css";
 import { useGetReviewsQuery } from "../../redux/services/api";
 import { ReviewNew } from "../review-new/component";
+import { useParams } from "react-router-dom";
 
-export const Reviews = ({restaurant}) => {
-    const {data, isFetching} = useGetReviewsQuery(restaurant.id);
+export const Reviews = () => {
+    const { restaurantId } = useParams();
+    const {data, isFetching} = useGetReviewsQuery(restaurantId);
 
     if (isFetching ) {
-        return "Загрузка отзывов";
+        return <div>Загрузка отзывов</div>;
     }
 
     return (
@@ -18,7 +20,7 @@ export const Reviews = ({restaurant}) => {
                     review = {review}
                 />
             )}
-            <ReviewNew restaurantId={restaurant.id}/>
+            <ReviewNew restaurantId={restaurantId}/>
         </div>
     )
 }

@@ -1,13 +1,14 @@
 import { Dish } from "../dish/component"
 import styles from "./styles.module.css";
 import { useGetDishesQuery } from "../../redux/services/api";
+import { useParams } from "react-router-dom";
 
-export const Menu = ({restaurant}) => {
-    console.log(restaurant);
-    const {data, isFetching} = useGetDishesQuery(restaurant.id);
+export const Menu = () => {
+    const { restaurantId } = useParams();
+    const {data, isFetching} = useGetDishesQuery(restaurantId);
 
     if (isFetching) {
-        return "Загрузка меню";
+        return <div>Загрузка меню</div>;
     }
 
     return (
